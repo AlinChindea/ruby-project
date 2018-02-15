@@ -6,6 +6,10 @@ c1 = Club.create({ name: 'FC Barcelona', founded: 1899, crest: 'https://goo.gl/L
 c2 = Club.create({ name: 'Real Madrid', founded: 1902, crest: 'https://goo.gl/8hQFTK'})
 c3 = Club.create({ name: 'Arsenal', founded: 1886, crest: 'https://goo.gl/Gkn1Vd'})
 
+o1 = Owner.create({ name: 'Josep Maria Bartomeu', age: 55, wealth: 1000})
+o2 = Owner.create({ name: 'Florentino Perez', age: 70, wealth: 21000})
+o3 = Owner.create({ name: 'Stan Kroenke', age: 70, wealth: 81000})
+
 
 c1.players.create([
   { name: 'Lionel Messi', age: 30, photo: 'http://www.fillmurray.com/300/300' },
