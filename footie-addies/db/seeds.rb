@@ -1,14 +1,14 @@
-Owner.delete_all
 Club.delete_all
+Owner.delete_all
 Player.delete_all
-
-c1 = Club.create({ name: 'FC Barcelona', founded: 1899, crest: 'https://goo.gl/L5KE91'})
-c2 = Club.create({ name: 'Real Madrid', founded: 1902, crest: 'https://goo.gl/8hQFTK'})
-c3 = Club.create({ name: 'Arsenal', founded: 1886, crest: 'https://goo.gl/Gkn1Vd'})
 
 o1 = Owner.create({ name: 'Josep Maria Bartomeu', age: 55, wealth: 1000})
 o2 = Owner.create({ name: 'Florentino Perez', age: 70, wealth: 21000})
 o3 = Owner.create({ name: 'Stan Kroenke', age: 70, wealth: 81000})
+
+c1 = Club.create({ name: 'FC Barcelona', founded: 1899, crest: 'https://goo.gl/L5KE91', owner_ids: [o1.id]})
+c2 = Club.create({ name: 'Real Madrid', founded: 1902, crest: 'https://goo.gl/8hQFTK', owner_ids: [o2.id]})
+c3 = Club.create({ name: 'Arsenal', founded: 1886, crest: 'https://goo.gl/Gkn1Vd', owner_ids: [o3.id]})
 
 
 c1.players.create([

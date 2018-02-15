@@ -398,3 +398,166 @@ Migrating to CreateJoinTableClubsOwners (20180215185354)
   [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
   [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4520401140596023830)[0m
   [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started PUT "/api/clubs/1" for 127.0.0.1 at 2018-02-15 19:15:58 +0000
+  [1m[35m (7.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ClubsController#update as */*
+  Parameters: {"club"=>{"owner_ids"=>[2]}, "id"=>"1"}
+  [1m[36mClub Load (0.9ms)[0m  [1m[34mSELECT  "clubs".* FROM "clubs" WHERE "clubs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOwner Load (2.8ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" = 2[0m
+  [1m[36mOwner Load (1.1ms)[0m  [1m[34mSELECT "owners".* FROM "owners" INNER JOIN "clubs_owners" ON "owners"."id" = "clubs_owners"."owner_id" WHERE "clubs_owners"."club_id" = $1[0m  [["club_id", 1]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "clubs_owners" ("club_id", "owner_id") VALUES ($1, $2)[0m  [["club_id", 1], ["owner_id", 2]]
+  [1m[35m (7.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 500 Internal Server Error in 150ms (ActiveRecord: 36.1ms)
+
+
+  
+NoMethodError (undefined method `has_and_belongs_to_many' for ClubSerializer:Class):
+  
+app/serializers/club_serializer.rb:4:in `<class:ClubSerializer>'
+app/serializers/club_serializer.rb:1:in `<top (required)>'
+app/controllers/clubs_controller.rb:30:in `update'
+Started PUT "/api/clubs/1" for 127.0.0.1 at 2018-02-15 19:22:45 +0000
+Processing by ClubsController#update as */*
+  Parameters: {"club"=>{"owner_ids"=>[2]}, "id"=>"1"}
+  [1m[36mClub Load (1.2ms)[0m  [1m[34mSELECT  "clubs".* FROM "clubs" WHERE "clubs"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mOwner Load (1.0ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" = 2[0m
+  [1m[36mOwner Load (1.6ms)[0m  [1m[34mSELECT "owners".* FROM "owners" INNER JOIN "clubs_owners" ON "owners"."id" = "clubs_owners"."owner_id" WHERE "clubs_owners"."club_id" = $1[0m  [["club_id", 1]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers]   [1m[36mPlayer Load (1.0ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."club_id" = $1[0m  [["club_id", 1]]
+[active_model_serializers] Rendered ClubSerializer with ActiveModelSerializers::Adapter::Attributes (51.59ms)
+Completed 200 OK in 161ms (Views: 78.0ms | ActiveRecord: 18.6ms)
+
+
+  [1m[35m (8.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (7.7ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (9.2ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (9.7ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (317.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "footie-addies_development"[0m
+  [1m[35m (307.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "footie-addies_test"[0m
+  [1m[35m (247.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (24.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4520401140596023830)[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateClubs (20180215175537)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (34.4ms)[0m  [1m[35mCREATE TABLE "clubs" ("id" bigserial primary key, "name" character varying, "founded" integer, "crest" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175537"]]
+  [1m[35m (2.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlayers (20180215175736)
+  [1m[35m (6.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (47.5ms)[0m  [1m[35mCREATE TABLE "players" ("id" bigserial primary key, "name" character varying, "age" integer, "photo" text, "club_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_c4f411d518"
+FOREIGN KEY ("club_id")
+  REFERENCES "clubs" ("id")
+)[0m
+  [1m[35m (2.9ms)[0m  [1m[35mCREATE  INDEX  "index_players_on_club_id" ON "players"  ("club_id")[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175736"]]
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOwners (20180215175926)
+  [1m[35m (5.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (19.0ms)[0m  [1m[35mCREATE TABLE "owners" ("id" bigserial primary key, "name" character varying, "age" integer, "wealth" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175926"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateJoinTableClubsOwners (20180215185354)
+  [1m[35m (6.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (19.5ms)[0m  [1m[35mCREATE TABLE "clubs_owners" ("club_id" bigint NOT NULL, "owner_id" bigint NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215185354"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-02-15 19:33:21.468273"], ["updated_at", "2018-02-15 19:33:21.468273"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(4520401140596023830)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (8.8ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (7.4ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (14.4ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (4.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (29.1ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (8.5ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (8.6ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (31.6ms)[0m  [1m[32mINSERT INTO "owners" ("name", "age", "wealth", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Josep Maria Bartomeu"], ["age", 55], ["wealth", 1000], ["created_at", "2018-02-15 21:33:10.485692"], ["updated_at", "2018-02-15 21:33:10.485692"]]
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "owners" ("name", "age", "wealth", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Florentino Perez"], ["age", 70], ["wealth", 21000], ["created_at", "2018-02-15 21:33:10.522049"], ["updated_at", "2018-02-15 21:33:10.522049"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "owners" ("name", "age", "wealth", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Stan Kroenke"], ["age", 70], ["wealth", 81000], ["created_at", "2018-02-15 21:33:10.526387"], ["updated_at", "2018-02-15 21:33:10.526387"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mOwner Load (7.2ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (6.9ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 21:33:10.598775"], ["updated_at", "2018-02-15 21:33:10.598775"]]
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "clubs_owners" ("club_id", "owner_id") VALUES ($1, $2)[0m  [["club_id", 1], ["owner_id", 1]]
+  [1m[35m (6.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mOwner Load (0.9ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" = 2[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 21:33:10.624316"], ["updated_at", "2018-02-15 21:33:10.624316"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "clubs_owners" ("club_id", "owner_id") VALUES ($1, $2)[0m  [["club_id", 2], ["owner_id", 2]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mOwner Load (0.5ms)[0m  [1m[34mSELECT "owners".* FROM "owners" WHERE "owners"."id" = 3[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 21:33:10.632439"], ["updated_at", "2018-02-15 21:33:10.632439"]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "clubs_owners" ("club_id", "owner_id") VALUES ($1, $2)[0m  [["club_id", 3], ["owner_id", 3]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (7.6ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Lionel Messi"], ["age", 30], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 1], ["created_at", "2018-02-15 21:33:10.653539"], ["updated_at", "2018-02-15 21:33:10.653539"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Philippe Coutinho"], ["age", 25], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 1], ["created_at", "2018-02-15 21:33:10.665003"], ["updated_at", "2018-02-15 21:33:10.665003"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Cristiano Ronaldo"], ["age", 33], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 2], ["created_at", "2018-02-15 21:33:10.668790"], ["updated_at", "2018-02-15 21:33:10.668790"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Marcelo Vieira da Silva"], ["age", 29], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 2], ["created_at", "2018-02-15 21:33:10.672987"], ["updated_at", "2018-02-15 21:33:10.672987"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Mesut Ozil"], ["age", 29], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 3], ["created_at", "2018-02-15 21:33:10.676498"], ["updated_at", "2018-02-15 21:33:10.676498"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Pierre-Emerick Aubameyang"], ["age", 28], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 3], ["created_at", "2018-02-15 21:33:10.679690"], ["updated_at", "2018-02-15 21:33:10.679690"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/api/clubs/" for 127.0.0.1 at 2018-02-15 21:36:01 +0000
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ClubsController#index as */*
+  Parameters: {"club"=>{"owner_ids"=>[2]}}
+  [1m[36mClub Load (1.4ms)[0m  [1m[34mSELECT "clubs".* FROM "clubs"[0m
+[active_model_serializers]   [1m[36mPlayer Load (1.7ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."club_id" = $1[0m  [["club_id", 1]]
+[active_model_serializers]   [1m[36mOwner Load (0.9ms)[0m  [1m[34mSELECT "owners".* FROM "owners" INNER JOIN "clubs_owners" ON "owners"."id" = "clubs_owners"."owner_id" WHERE "clubs_owners"."club_id" = $1[0m  [["club_id", 1]]
+[active_model_serializers]   [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."club_id" = $1[0m  [["club_id", 2]]
+[active_model_serializers]   [1m[36mOwner Load (0.7ms)[0m  [1m[34mSELECT "owners".* FROM "owners" INNER JOIN "clubs_owners" ON "owners"."id" = "clubs_owners"."owner_id" WHERE "clubs_owners"."club_id" = $1[0m  [["club_id", 2]]
+[active_model_serializers]   [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT "players".* FROM "players" WHERE "players"."club_id" = $1[0m  [["club_id", 3]]
+[active_model_serializers]   [1m[36mOwner Load (0.6ms)[0m  [1m[34mSELECT "owners".* FROM "owners" INNER JOIN "clubs_owners" ON "owners"."id" = "clubs_owners"."owner_id" WHERE "clubs_owners"."club_id" = $1[0m  [["club_id", 3]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (125.79ms)
+Completed 200 OK in 196ms (Views: 158.8ms | ActiveRecord: 35.8ms)
+
+
+Started GET "/api/owners" for 127.0.0.1 at 2018-02-15 21:36:26 +0000
+Processing by OwnersController#index as */*
+  Parameters: {"club"=>{"owner_ids"=>[2]}, "owner"=>{}}
+  [1m[36mOwner Load (0.9ms)[0m  [1m[34mSELECT "owners".* FROM "owners"[0m
+[active_model_serializers]   [1m[36mClub Load (2.4ms)[0m  [1m[34mSELECT "clubs".* FROM "clubs" INNER JOIN "clubs_owners" ON "clubs"."id" = "clubs_owners"."club_id" WHERE "clubs_owners"."owner_id" = $1[0m  [["owner_id", 1]]
+[active_model_serializers]   [1m[36mPlayer Load (9.6ms)[0m  [1m[34mSELECT DISTINCT "players".* FROM "players" INNER JOIN "clubs" ON "players"."club_id" = "clubs"."id" INNER JOIN "clubs_owners" ON "clubs"."id" = "clubs_owners"."club_id" WHERE "clubs_owners"."owner_id" = $1[0m  [["owner_id", 1]]
+[active_model_serializers]   [1m[36mClub Load (1.1ms)[0m  [1m[34mSELECT "clubs".* FROM "clubs" INNER JOIN "clubs_owners" ON "clubs"."id" = "clubs_owners"."club_id" WHERE "clubs_owners"."owner_id" = $1[0m  [["owner_id", 2]]
+[active_model_serializers]   [1m[36mPlayer Load (1.4ms)[0m  [1m[34mSELECT DISTINCT "players".* FROM "players" INNER JOIN "clubs" ON "players"."club_id" = "clubs"."id" INNER JOIN "clubs_owners" ON "clubs"."id" = "clubs_owners"."club_id" WHERE "clubs_owners"."owner_id" = $1[0m  [["owner_id", 2]]
+[active_model_serializers]   [1m[36mClub Load (0.7ms)[0m  [1m[34mSELECT "clubs".* FROM "clubs" INNER JOIN "clubs_owners" ON "clubs"."id" = "clubs_owners"."club_id" WHERE "clubs_owners"."owner_id" = $1[0m  [["owner_id", 3]]
+[active_model_serializers]   [1m[36mPlayer Load (1.2ms)[0m  [1m[34mSELECT DISTINCT "players".* FROM "players" INNER JOIN "clubs" ON "players"."club_id" = "clubs"."id" INNER JOIN "clubs_owners" ON "clubs"."id" = "clubs_owners"."club_id" WHERE "clubs_owners"."owner_id" = $1[0m  [["owner_id", 3]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (65.92ms)
+Completed 200 OK in 117ms (Views: 76.9ms | ActiveRecord: 39.6ms)
+
+
