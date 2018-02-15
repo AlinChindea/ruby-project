@@ -1,0 +1,162 @@
+  [1m[35m (27.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (22.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4520401140596023830)[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateClubs (20180215175537)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (28.7ms)[0m  [1m[35mCREATE TABLE "clubs" ("id" bigserial primary key, "name" character varying, "founded" integer, "crest" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (2.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175537"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlayers (20180215175736)
+  [1m[35m (6.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (29.5ms)[0m  [1m[35mCREATE TABLE "players" ("id" bigserial primary key, "name" character varying, "age" integer, "photo" text, "club_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_c4f411d518"
+FOREIGN KEY ("club_id")
+  REFERENCES "clubs" ("id")
+)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_players_on_club_id" ON "players"  ("club_id")[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175736"]]
+  [1m[35m (6.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOwners (20180215175926)
+  [1m[35m (6.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (25.2ms)[0m  [1m[35mCREATE TABLE "owners" ("id" bigserial primary key, "name" character varying, "age" integer, "wealth" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175926"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (6.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-02-15 18:00:08.022234"], ["updated_at", "2018-02-15 18:00:08.022234"]]
+  [1m[35m (6.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(4520401140596023830)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (25.5ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (7.9ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (12.9ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (34.3ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 18:23:32.467349"], ["updated_at", "2018-02-15 18:23:32.467349"]]
+  [1m[35m (3.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 18:23:32.509916"], ["updated_at", "2018-02-15 18:23:32.509916"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 18:23:32.514222"], ["updated_at", "2018-02-15 18:23:32.514222"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (35.3ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 18:25:08.066502"], ["updated_at", "2018-02-15 18:25:08.066502"]]
+  [1m[35m (5.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 18:25:08.075756"], ["updated_at", "2018-02-15 18:25:08.075756"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 18:25:08.079779"], ["updated_at", "2018-02-15 18:25:08.079779"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (12.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (266.3ms)[0m  [1m[35mDROP DATABASE IF EXISTS "footie-addies_development"[0m
+  [1m[35m (227.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "footie-addies_test"[0m
+  [1m[35m (18.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (23.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (5.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4520401140596023830)[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateClubs (20180215175537)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (29.9ms)[0m  [1m[35mCREATE TABLE "clubs" ("id" bigserial primary key, "name" character varying, "founded" integer, "crest" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175537"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePlayers (20180215175736)
+  [1m[35m (6.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (19.3ms)[0m  [1m[35mCREATE TABLE "players" ("id" bigserial primary key, "name" character varying, "age" integer, "photo" text, "club_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_c4f411d518"
+FOREIGN KEY ("club_id")
+  REFERENCES "clubs" ("id")
+)[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE  INDEX  "index_players_on_club_id" ON "players"  ("club_id")[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175736"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOwners (20180215175926)
+  [1m[35m (6.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (18.2ms)[0m  [1m[35mCREATE TABLE "owners" ("id" bigserial primary key, "name" character varying, "age" integer, "wealth" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180215175926"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-02-15 18:26:54.409008"], ["updated_at", "2018-02-15 18:26:54.409008"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(4520401140596023830)[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (1.6ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (3.6ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 18:27:28.123851"], ["updated_at", "2018-02-15 18:27:28.123851"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 18:27:28.131703"], ["updated_at", "2018-02-15 18:27:28.131703"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 18:27:28.135544"], ["updated_at", "2018-02-15 18:27:28.135544"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (8.4ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 18:27:42.612174"], ["updated_at", "2018-02-15 18:27:42.612174"]]
+  [1m[35m (2.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 18:27:42.618382"], ["updated_at", "2018-02-15 18:27:42.618382"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 18:27:42.621603"], ["updated_at", "2018-02-15 18:27:42.621603"]]
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (7.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (8.7ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (5.5ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 18:29:43.042019"], ["updated_at", "2018-02-15 18:29:43.042019"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 18:29:43.051776"], ["updated_at", "2018-02-15 18:29:43.051776"]]
+  [1m[35m (6.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 18:29:43.062722"], ["updated_at", "2018-02-15 18:29:43.062722"]]
+  [1m[35m (5.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (1.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[31mDELETE FROM "owners"[0m
+  [1m[35mSQL (9.1ms)[0m  [1m[31mDELETE FROM "clubs"[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[31mDELETE FROM "players"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "FC Barcelona"], ["founded", 1899], ["crest", "https://goo.gl/L5KE91"], ["created_at", "2018-02-15 18:30:55.983558"], ["updated_at", "2018-02-15 18:30:55.983558"]]
+  [1m[35m (5.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Real Madrid"], ["founded", 1902], ["crest", "https://goo.gl/8hQFTK"], ["created_at", "2018-02-15 18:30:55.992830"], ["updated_at", "2018-02-15 18:30:55.992830"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "clubs" ("name", "founded", "crest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Arsenal"], ["founded", 1886], ["crest", "https://goo.gl/Gkn1Vd"], ["created_at", "2018-02-15 18:30:55.997298"], ["updated_at", "2018-02-15 18:30:55.997298"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (18.9ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Lionel Messi"], ["age", 30], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 10], ["created_at", "2018-02-15 18:30:56.042102"], ["updated_at", "2018-02-15 18:30:56.042102"]]
+  [1m[35m (5.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Philippe Coutinho"], ["age", 25], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 10], ["created_at", "2018-02-15 18:30:56.070901"], ["updated_at", "2018-02-15 18:30:56.070901"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Cristiano Ronaldo"], ["age", 33], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 11], ["created_at", "2018-02-15 18:30:56.076640"], ["updated_at", "2018-02-15 18:30:56.076640"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Marcelo Vieira da Silva"], ["age", 29], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 11], ["created_at", "2018-02-15 18:30:56.080610"], ["updated_at", "2018-02-15 18:30:56.080610"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Mesut Ozil"], ["age", 29], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 12], ["created_at", "2018-02-15 18:30:56.084832"], ["updated_at", "2018-02-15 18:30:56.084832"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "players" ("name", "age", "photo", "club_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Pierre-Emerick Aubameyang"], ["age", 28], ["photo", "http://www.fillmurray.com/300/300"], ["club_id", 12], ["created_at", "2018-02-15 18:30:56.088585"], ["updated_at", "2018-02-15 18:30:56.088585"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
